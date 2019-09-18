@@ -2,7 +2,6 @@ package findpackagesrc
 
 import (
 	"bufio"
-	"errors"
 	"io"
 	"os"
 	"path/filepath"
@@ -27,9 +26,6 @@ func parseGoModFile(dir string) (map[string]replaceEntry, error) {
 	gomod := filepath.Join(dir, "go.mod")
 	f, err := os.Open(gomod)
 	if err != nil {
-		if os.IsNotExist(err) {
-			return nil, errors.New("cannot read go.mod")
-		}
 		return nil, err
 	}
 	defer f.Close()
@@ -45,6 +41,9 @@ func at(s []string, pos int) string {
 }
 
 func convertMapToSlice(src map[string]replaceEntry) []replaceEntry {
+	if src == nil {
+		return nil
+	}
 	result := make([]replaceEntry, 0, len(src))
 	for _, entry := range src {
 		result = append(result, entry)

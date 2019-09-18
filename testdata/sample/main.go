@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	finder, err := findpackagesrc.NewFinder(findpackagesrc.Option{})
+	finder, err := findpackagesrc.NewFinder()
 	if err != nil {
 		panic(err)
 	}

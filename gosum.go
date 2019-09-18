@@ -2,7 +2,6 @@ package findpackagesrc
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -16,12 +15,6 @@ func parseGoSumFile(dir string) (map[string]string, error) {
 	gosum := filepath.Join(dir, "go.sum")
 	f, err := os.Open(gosum)
 	if err != nil {
-		if os.IsNotExist(err) {
-			if _, err := os.Stat(filepath.Join(dir, "go.mod")); err != nil {
-				return nil, errors.New("use go modules")
-			}
-			return nil, errors.New("cannot read go.sum")
-		}
 		return nil, err
 	}
 	defer f.Close()
@@ -52,6 +45,9 @@ func parseGoSum(reader io.Reader) (map[string]string, error) {
 }
 
 func convertGoSumMapToSlice(src map[string]string) [][2]string {
+	if src == nil {
+		return nil
+	}
 	result := make([][2]string, 0, len(src))
 	for k, v := range src {
 		result = append(result, [2]string{k, v})

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os/exec"
 	"strings"
-	)
+)
 
 // https://github.com/Songmu/gocredits/blob/master/run.go
 func run(command string, args ...string) (string, error) {
