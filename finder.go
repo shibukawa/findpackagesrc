@@ -37,7 +37,7 @@ type Option struct {
 func NewFinder(options ...Option) (*Finder, error) {
 	var option Option
 	if len(options) > 0 {
-		option = options[1]
+		option = options[0]
 	}
 	if option.ProjectPath == "" {
 		currentPath, err := filepath.Abs(".")
